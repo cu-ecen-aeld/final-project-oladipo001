@@ -1,0 +1,67 @@
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM
+	bool "python-opencv-home-cam"
+	select BR2_PACKAGE_PYTHON_IMUTILS
+	help
+	  A simple opencv object detection framework.
+
+	  https://github.com/erstrom/opencv-home-cam
+
+if BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM
+
+choice
+
+	bool "Detector to use"
+
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_HAAR_CASCADE_DETECTOR
+	bool "Haar cascade detector"
+
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_SIMPLE_MOTION_DETECTOR
+	bool "Simple motion detector"
+	help
+	  The simple motion detector will diff consecutive frames
+	  captured by the camera and check if there are any significant
+	  differences.
+
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_HOG_PEOPLE_DETECTOR
+	bool "HOG people detector"
+	help
+	  The HOG people detector will use the OpenCV built-in HOG
+	  people detector to detect pedestrians.
+
+endchoice
+
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_SEND_EMAIL_ACTION
+	bool "Enable sendemail action"
+	default n
+
+if BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_SEND_EMAIL_ACTION
+
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_SEND_EMAIL_ACTION_FROM_ADDR
+	string "From-address"
+	default ""
+	help
+	  The address from which the email will be sent.
+
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_SEND_EMAIL_ACTION_TO_ADDR
+	string "To-address"
+	default ""
+	help
+	  The address(es) to which the email will be sent.
+	  Several addresses shall be separated with spaces.
+
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_SEND_EMAIL_SMTP_SERVER
+	string "SMTP server"
+	default "smtp.gmail.com:587"
+	help
+	  The SMTP server that sendemail will connect to.
+
+config BR2_PACKAGE_PYTHON_OPENCV_HOME_CAM_SEND_EMAIL_SMTP_PASSWD
+	string "SMTP password"
+	default ""
+	help
+	  The password (clear text) that will be used to authenticate with the
+	  SMTP server.
+
+endif
+
+endif
